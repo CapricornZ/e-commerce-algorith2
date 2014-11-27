@@ -17,7 +17,7 @@ public class TrueAndFalse {
 		this.result = result;
 	}
 	
-	public void println(){
+	public void print(){
 		
 		StringBuilder sBuild = new StringBuilder();
 		for(Boolean o:this.result)

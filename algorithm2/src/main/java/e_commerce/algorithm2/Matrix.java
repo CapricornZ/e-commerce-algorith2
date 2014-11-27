@@ -18,10 +18,10 @@ public class Matrix {
 		this.rows.add(row);
 	}
 	
-	public void println(){
+	public void print(){
 		logger.debug("[\r\n");
 		for(Row row:this.rows)
-			row.println();
+			row.print();
 		logger.debug("]\r\n");
 	}
 	

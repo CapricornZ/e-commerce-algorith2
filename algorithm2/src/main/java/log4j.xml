@@ -3,7 +3,7 @@
 	<appender name="CONSOLE-CLEAN" class="org.apache.log4j.ConsoleAppender">
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%m" />
-		</layout>    <!--限制输出级别 -->
+		</layout>
 	</appender>
 	
 	<appender name="FILE-CLEAN" class="org.apache.log4j.FileAppender">

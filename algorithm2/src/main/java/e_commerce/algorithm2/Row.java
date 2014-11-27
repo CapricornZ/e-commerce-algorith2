@@ -27,7 +27,7 @@ public class Row {
 		return this.type;
 	}
 	
-	public void println(){
+	public void print(){
 		logger.debug("\t{ type:{}, data:'{}' }\r\n", this.type, String.valueOf(data));
 	}
 }

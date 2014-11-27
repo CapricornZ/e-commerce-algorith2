@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,7 @@ public class App {
 		
 		String filePath = args[0];
 		logger.info("----------------------------------------\r\n");
-		logger.info("now start scanning {} ...\r\n", filePath);
+		logger.info("start scanning {} ...\r\n", filePath);
 		logger.info("----------------------------------------\r\n");
 		InputStreamReader read = new InputStreamReader(new FileInputStream(filePath), "UTF-8");
 		BufferedReader bufferedReader = new BufferedReader(read);
@@ -40,13 +41,14 @@ public class App {
 
 			logger.info("{}\r\n", source);
 			logger.debug("Execute step 1\r\n");
+			Source sourceLine = new Source(source);
+			List<Row> rows = sourceLine.run();
+			
 			Matrix matrix0 = new Matrix();
 			Matrix matrix1 = new Matrix();
-			int length = 0;
-			for(;length<source.length();){
-				char[] array = source.substring(length).toCharArray();
-				Row row = step1(array);
-				length += row.getMaxColumn();
+			
+			for(Row row : rows){
+
 				if(row.getType() == 0)
 					matrix0.append(row);
 				else
@@ -54,47 +56,21 @@ public class App {
 			}
 			
 			logger.debug("Execute step 2\r\n");
-			matrix0.println();
+			matrix0.print();
 			TrueAndFalse result0 = matrix0.run();
-			result0.println();
+			result0.print();
 			logger.debug("Execute step 3\r\n");
 			result0.run(0);
 
 			logger.debug("Execute step 2\r\n");
-			matrix1.println();
+			matrix1.print();
 			TrueAndFalse result1 = matrix1.run();
-			result1.println();
+			result1.print();
 			logger.debug("Execute step 3\r\n");
 			result1.run(0);
 			
-			logger.info("---- END -----");
+			logger.info("---- END -----\r\n");
 		}
 		bufferedReader.close();
-	}
-	
-	public static Row step1(char[] source){
-
-		int column = 0;
-		int COLUMN = 4;
-		char last = source[0];
-
-		int index = 1;
-		for(index=1; column < COLUMN; index++){
-			
-			if(index >= source.length){
-				column ++;
-				index ++;
-				break;
-			}
-			
-			if(source[index] != last){
-				last = source[index];
-				column ++;
-			}
-		}
-		
-		return new Row(
-				source[0]==source[1]?1:0,
-				source, 0, index-1);
 	}
 }
