@@ -40,6 +40,19 @@ public class Matrix {
 				
 				result.add(PairEngine.getInstance().pair(first, second));
 			}
+			
+			if(row0.getMaxColumn() > row1.getMaxColumn()){//需要增加附加字符
+				
+				String first = row0.getData(minColumn-1, STEP);
+				String second = row1.getData(minColumn-1, STEP-1);
+				if(second.equals("A"))
+					second = "AB";
+				else
+					second = "BA";
+				
+				result.add(PairEngine.getInstance().pair(first, second));
+				
+			}
 		}
 		return new TrueAndFalse(result);
 	}
