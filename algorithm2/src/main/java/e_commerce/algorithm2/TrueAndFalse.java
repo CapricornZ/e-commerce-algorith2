@@ -17,19 +17,45 @@ public class TrueAndFalse {
 		this.result = result;
 	}
 	
+	private int sum, max;
+	private int countTrue, countFalse;	
+	public int getSum(){return sum;}
+	public int getMax(){return max;}
+	public int getCountTrue(){return countTrue;}
+	public int getCountFalse(){return countFalse;}
+	
 	public void print(){
 		
+		this.countFalse = 0;
+		this.countTrue = 0;
 		StringBuilder sBuild = new StringBuilder();
-		for(Boolean o:this.result)
-			sBuild.append(o?"o":"x");
-		logger.info("{}\r\n", sBuild);
+		for(Boolean o:this.result){
+			if(o){
+				countTrue ++;
+				sBuild.append("o");
+			} else {
+				countFalse ++;
+				sBuild.append("x");
+			}
+		}
+		logger.info("{}", sBuild);
+		logger.info(" [ x:{} ({}%), o:{} ({}%) ]\r\n", 
+				countFalse, ((float)countFalse*100/(float)(countFalse+countTrue)), 
+				countTrue, ((float)countTrue*100/(float)(countFalse+countTrue)));
 	}
 	
 	public void run(int offset){
 		
-		int sum = 0;
+		this.max = 0;
+		this.sum = 0;
+		
 		int indexSourceStep3 = 0;
 		for (int indexSource = offset; indexSource < result.size(); indexSource++) {
+			
+			int current = metaData[indexSourceStep3];
+			if(max < current)
+				max = current;
+			
 			if (result.get(indexSource)) {
 				sum += metaData[indexSourceStep3];
 				logger.info("+{}", metaData[indexSourceStep3]);
@@ -41,6 +67,7 @@ public class TrueAndFalse {
 				indexSourceStep3 += 1;
 			}
 		}
-		logger.info(" = {} \r\n", sum);
+		//logger.info(" = {} \r\n", sum);
+		logger.info(" = {} [ MAX: {} ]\r\n", sum, max);
 	}
 }

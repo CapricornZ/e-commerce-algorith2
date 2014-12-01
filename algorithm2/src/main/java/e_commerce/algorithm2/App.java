@@ -22,7 +22,7 @@ public class App {
 		
 		String filePath = args[0];
 		logger.info("----------------------------------------\r\n");
-		logger.info("start scanning {} ...\r\n", filePath);
+		logger.info("---start scanning {} ... ---\r\n", filePath);
 		logger.info("----------------------------------------\r\n");
 		InputStreamReader read = new InputStreamReader(new FileInputStream(filePath), "UTF-8");
 		BufferedReader bufferedReader = new BufferedReader(read);
