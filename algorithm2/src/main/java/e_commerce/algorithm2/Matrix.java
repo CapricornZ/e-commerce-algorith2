@@ -27,8 +27,10 @@ public class Matrix {
 	
 	public TrueAndFalse run(){
 		
-		List<Boolean> result = new ArrayList<Boolean>();
+		List<TrueAndFalseRow> tafs = new ArrayList<TrueAndFalseRow>();
 		for(int rowIndex=0; rowIndex<this.rows.size()-1; rowIndex++){
+			
+			List<Boolean> result = new ArrayList<Boolean>();
 			final int STEP = 2;
 			Row row0 = this.rows.get(rowIndex);
 			Row row1 = this.rows.get(rowIndex+1);
@@ -51,9 +53,9 @@ public class Matrix {
 					second = "BA";
 				
 				result.add(PairEngine.getInstance().pair(first, second));
-				
 			}
+			tafs.add(new TrueAndFalseRow(result));
 		}
-		return new TrueAndFalse(result);
+		return new TrueAndFalseList(tafs);
 	}
 }

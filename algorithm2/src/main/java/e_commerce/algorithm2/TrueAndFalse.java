@@ -5,24 +5,18 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TrueAndFalse {
+public abstract class TrueAndFalse {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TrueAndFalse.class);
 	private static int[] metaData = new int[] { 1, 2, 3, 5, 8, 13, 21, 34,
 		55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765, 10946,
 		17711, 28657, 46368 };
 	
-	private List<Boolean> result;
-	public TrueAndFalse(List<Boolean> result){
-		this.result = result;
-	}
-	
-	private int sum, max;
-	private int countTrue, countFalse;	
-	public int getSum(){return sum;}
-	public int getMax(){return max;}
+	private int countTrue, countFalse;
 	public int getCountTrue(){return countTrue;}
 	public int getCountFalse(){return countFalse;}
+	
+	public abstract int getCountOfItem();
 	
 	public void print(){
 		
@@ -43,6 +37,18 @@ public class TrueAndFalse {
 				countFalse, ((float)countFalse*100/(float)(countFalse+countTrue)), 
 				countTrue, ((float)countTrue*100/(float)(countFalse+countTrue)));
 	}
+	
+	protected List<Boolean> result;
+	public TrueAndFalse(){
+	}
+	public TrueAndFalse(List<Boolean> result){
+		this.result = result;
+	}
+	
+	private int sum, max;
+	public int getSum(){return sum;}
+	public int getMax(){return max;}
+	public List<Boolean> getResult(){return result;}
 	
 	public void run(int offset){
 		
@@ -67,7 +73,6 @@ public class TrueAndFalse {
 				indexSourceStep3 += 1;
 			}
 		}
-		//logger.info(" = {} \r\n", sum);
 		logger.info(" = {} [ MAX: {} ]\r\n", sum, max);
 	}
 }

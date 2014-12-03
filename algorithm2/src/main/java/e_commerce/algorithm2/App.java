@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -27,6 +28,9 @@ public class App {
 		InputStreamReader read = new InputStreamReader(new FileInputStream(filePath), "UTF-8");
 		BufferedReader bufferedReader = new BufferedReader(read);
 		String lineTxt = null;
+		List<TrueAndFalse> totalResult0 = new ArrayList<TrueAndFalse>();
+		List<TrueAndFalse> totalResult1 = new ArrayList<TrueAndFalse>();
+		int maxRowOfResult0=0, maxRowOfResult1=0;
 		while ((lineTxt = bufferedReader.readLine()) != null) {
 
 			String source = lineTxt.trim();
@@ -40,11 +44,11 @@ public class App {
 			Source sourceLine = new Source(source);
 			List<Row> rows = sourceLine.run();
 			
+			//根据第一列个数是否大于1，分类
 			Matrix matrix0 = new Matrix();
 			Matrix matrix1 = new Matrix();
 			
 			for(Row row : rows){
-
 				if(row.getType() == 0)
 					matrix0.append(row);
 				else
@@ -57,6 +61,8 @@ public class App {
 			result0.print();
 			logger.debug("Execute step 3\r\n");
 			result0.run(0);
+			totalResult0.add(result0);
+			maxRowOfResult0 = maxRowOfResult0>result0.getCountOfItem()?maxRowOfResult0:result0.getCountOfItem();
 
 			logger.debug("Execute step 2\r\n");
 			matrix1.print();
@@ -64,9 +70,21 @@ public class App {
 			result1.print();
 			logger.debug("Execute step 3\r\n");
 			result1.run(0);
+			totalResult1.add(result1);
+			maxRowOfResult1 = maxRowOfResult1>result1.getCountOfItem()?maxRowOfResult1:result1.getCountOfItem();
 			
 			logger.info("---- END -----\r\n");
 		}
 		bufferedReader.close();
+		
+		logger.info("----------------------------------------------\r\n");
+		logger.info("---------------------文件汇总-------------------\r\n");
+		for(int i=0; i<maxRowOfResult0; i++){
+			
+		}
+		
+		for(int i=0; i<maxRowOfResult0; i++){
+			
+		}
 	}
 }
